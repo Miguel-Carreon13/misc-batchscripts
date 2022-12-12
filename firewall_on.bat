@@ -2,7 +2,7 @@
 cls
 title Firewall
 echo.
-echo [Apagar Firewall]
+echo [Encender Firewall]
 echo _________________
 echo.
 
