@@ -1,35 +1,8 @@
-@echo off
-title Map ASN folders
+:: To encode Bat FFFE0A0D
 
-echo [Map Network Drives ECO labs]
-echo _____________________________
-echo.
-echo.
+net use L: /delete >nul 2>nul
+net use K: /delete >nul 2>nul
 
-set "source1=\\172.21.66.195\d$\Luxotica"
-set "source2=\\mx-fileseco\ECO1\Lux"
-set "driveletter1=L:"
-set "driveletter2=K:"
+net use L: \\172.21.66.195\d$\Luxotica Bo$jack$0035 /USER:essilor-mx\rvenzor /persistent:no
 
-echo Mapping %source1% to %driveletter1%
-net use %driveletter1% %source1% /persistent:yes
-
-if errorlevel==1 goto error
-
-echo Mapping %source2% to %driveletter2%
-net use %driveletter2% %source2% /persistent:yes
-
-if errorlevel==1 goto error
-
-color 0a
-echo Mapping completed successfully
-pause
-
-
-:error
-color 4
-title Error
-echo.
-echo.
-echo Problem mapping the folder
-timeout /t 10 /nobreak>nul
+net use K: \\mx-fileseco\ECO1\Lux Bo$jack$0035 /USER:essilor-mx\rvenzor /persistent:no
