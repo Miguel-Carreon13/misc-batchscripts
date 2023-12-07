@@ -14,6 +14,8 @@ echo 2. Map ECO2
 echo.
 echo 3. Map Public
 echo.
+echo 4. Map Vic File Server
+echo.
 echo 0. Exit
 echo.
 echo.
@@ -27,6 +29,7 @@ if not defined choice (
 if %choice%==1 goto eco1Map
 if %choice%==2 goto eco2Map
 if %choice%==3 goto publicMap
+if %choice%==4 goto vicMap
 if %choice%==0 goto:eof
 if errorlevel==1 goto error
 
@@ -53,6 +56,12 @@ goto index
 
 :publicMap
 net use z: \\mx-fileseco\public /persistent:yes
+color 0a
+timeout /t 1 /nobreak>nul
+goto index
+
+:vicMap
+net use v: \\172.22.187.9\itdata
 color 0a
 timeout /t 1 /nobreak>nul
 goto index
