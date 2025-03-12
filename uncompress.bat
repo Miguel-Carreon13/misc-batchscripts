@@ -1,29 +1,24 @@
 @echo off
-
-setlocal
-
-REM Check if 7-Zip is installed
-set "SEVENZIP_PATH=C:\Program Files\7-Zip\7z.exe"
-if not exist "%SEVENZIP_PATH%" (
-    echo 7-Zip is not installed on this system.
-    goto end
-)
-
-REM Extract and delete .Z archives
 setlocal enabledelayedexpansion
-set start_time=!time: =0!
 
-for %%F in (*.Z) do (
-    echo Extracting "%%F"
-    "%SEVENZIP_PATH%" e "%%F" -bso0 -bsp1 -mmt
-    echo Deleting "%%F"
-    del "%%F"
+:: Define 7-Zip executable path (properly quoted)
+set "ZIP_EXEC=C:\Program Files\7-Zip\7z.exe"
+
+:: Check if 7z is available
+if not exist "%ZIP_EXEC%" (
+    echo 7-Zip not found at "%ZIP_EXEC%". Please check the path.
+    exit /b 1
 )
 
-set end_time=!time: =0!
-set /a "elapsed_time=((1!end_time:~0,2!-1!start_time:~0,2!)*3600)+((1!end_time:~3,2!-1!start_time:~3,2!)*60)+((1!end_time:~6,2!-1!start_time:~6,2!))+((1!end_time:~9,2!-1!start_time:~9,2!)/10)"
+:: Process each .Z file in parallel
+for /r %%F in (*.Z) do (
+    set "DIR=%%~dpF"
+    set "BASENAME=%%~nF"  :: Get filename without extension
+    echo Extracting "%%F" in "!DIR!"...
 
-echo Execution time: %elapsed_time% seconds
+    :: Corrected start command to handle spaces in paths
+    start /b "" cmd /c ""%ZIP_EXEC%" e "%%F" -o"!DIR!" -y >nul && ren "!DIR!%%~nF" "%%~nF.out" && del "%%F""
+)
 
-:end
-pause
+echo All extractions started. Please wait...
+exit /b
