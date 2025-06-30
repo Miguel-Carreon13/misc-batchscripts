@@ -14,11 +14,15 @@ echo 2. Map Fileseco ECO2
 echo.
 echo 3. Map Fileseco Public
 echo.
-echo 4. Map Azure ECO1
+echo 4. Map Azure ECO1 Sofi
 echo.
-echo 5. Map Azure ECO2
+echo 5. Map Azure ECO2 Sofi
 echo.
 echo 6. Map itdata
+echo.
+echo 7. Map Azure ECOs
+echo.
+echo 8. Map Azure Public
 echo.
 echo 0. Exit
 echo.
@@ -36,6 +40,8 @@ if %choice%==3 goto publicfileseco
 if %choice%==4 goto eco1azure
 if %choice%==5 goto eco2azure
 if %choice%==6 goto itdata
+if %choice%==7 goto ecosazure
+if %choice%==8 goto ecosazurepub
 if %choice%==0 goto:eof
 if errorlevel==1 goto error
 
@@ -91,7 +97,23 @@ goto index
 :itdata
 net use v: /delete /yes
 timeout /t 3 /nobreak>nul
-net use v: \\172.22.187.9\ITDATA SistemasEc0$@ /user:WIN-GTELSG14QMO\It /persistent:yes
+net use v: \\172.22.187.2\ITDATA SistemasEc0$@ /user:WIN-GTELSG14QMO\It /persistent:yes
+color 0a
+timeout /t 1 /nobreak>nul
+goto index
+
+:ecosazure
+net use s: /delete /yes
+timeout /t 3 /nobreak>nul
+net use s: \\ELCEOAECOFSP01\ECOs
+color 0a
+timeout /t 1 /nobreak>nul
+goto index
+
+:ecosazurepub
+net use r: /delete /yes
+timeout /t 3 /nobreak>nul
+net use s: \\ELCEOAECOFSP01\public
 color 0a
 timeout /t 1 /nobreak>nul
 goto index
