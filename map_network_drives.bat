@@ -97,7 +97,7 @@ goto index
 :itdata
 net use v: /delete /yes
 timeout /t 3 /nobreak>nul
-net use v: \\172.22.187.2\ITDATA SistemasEc0$@ /user:WIN-GTELSG14QMO\It /persistent:yes
+net use v: \\172.22.187.2\ITDATA /persistent:yes
 color 0a
 timeout /t 1 /nobreak>nul
 goto index
